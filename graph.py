@@ -1,7 +1,7 @@
 """Module for handling Neo4j database connections and queries"""
 
-from neo4j import GraphDatabase
 import json
+from neo4j import GraphDatabase
 from config import NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, NEO4J_DB
 
 
@@ -76,7 +76,7 @@ def dict_to_str(d):
     return "{%s}" % ", ".join(items)
 
 
-def create_Node(category: str, properties: dict) -> str:
+def create_node(category: str, properties: dict) -> str:
     """Create a new node in the Neo4j database
 
     Args:

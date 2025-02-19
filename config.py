@@ -28,3 +28,8 @@ BUCKET_NAME = os.getenv('BUCKET_NAME')
 PANNELUM_URL = os.getenv('PANNELUM_URL')
 PANNELUM_PORT = os.getenv('PANNELUM_PORT')
 
+#Allowed users for admin bot
+#Change on deployment
+ALLOWED_USERS = [
+    1014822113
+]

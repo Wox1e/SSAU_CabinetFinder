@@ -4,7 +4,7 @@ from graph import *
 from media_storage import save_file, get_file
 from key_value_table import save_to_idTable, get_from_idTable
 from config import BOT_TOKEN, TEMPLATE_IMAGE_FILENAME_SAVE, NODES_GROUP_NAME, PANORAMA_IMAGE_BUCKET, TEMPLATE_PANORAMA_IMAGE_FILENAME_SAVE, PANNELUM_URL, PANNELUM_PORT, \
-MINIO_ENDPOINT
+MINIO_ENDPOINT, ALLOWED_USERS
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
@@ -13,7 +13,7 @@ markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
 
 buttons = [
     "/id_table",
-    "/new_node",
+    "/new_node", 
     "/new_edge",
     "/path",
     "/nodes_list",
@@ -27,11 +27,17 @@ for button in buttons:
 
 @bot.message_handler(commands=['start'])
 def start(message):
+    if message.from_user.id not in ALLOWED_USERS:
+        bot.send_message(message.from_user.id, "У вас нет доступа к этому боту")
+        return
     bot.send_message(message.from_user.id, "👋 Привет! Я твой бот-чмошник!", reply_markup=markup)
 
 
 @bot.message_handler(commands=['id_table', 'table_id'])
 def id_table(message):
+    if message.from_user.id not in ALLOWED_USERS:
+        bot.send_message(message.from_user.id, "У вас нет доступа к этому боту")
+        return
     try:
         nodes = get_all_nodes()
     except:
@@ -52,6 +58,9 @@ def id_table(message):
 
 @bot.message_handler(commands=['new_node','node_new'])
 def new_node(message):
+    if message.from_user.id not in ALLOWED_USERS:
+        bot.send_message(message.from_user.id, "У вас нет доступа к этому боту")
+        return
 
     properties = {
         "name":"",
@@ -62,6 +71,9 @@ def new_node(message):
     
     @bot.message_handler(content_types= ["photo", "text"])  #Создаём новую функцию ,реагирующую на любое сообщение
     def message_input_step(message):
+        if message.from_user.id not in ALLOWED_USERS:
+            bot.send_message(message.from_user.id, "У вас нет доступа к этому боту")
+            return
         
         try:
             text = message.caption
@@ -107,12 +119,18 @@ def new_node(message):
 
 @bot.message_handler(commands=['new_edge', 'edge_new'])
 def new_edge(message):
+    if message.from_user.id not in ALLOWED_USERS:
+        bot.send_message(message.from_user.id, "У вас нет доступа к этому боту")
+        return
 
     bot.send_message(message.from_user.id, " - Создание новой связи -", reply_markup=markup) 
     bot.send_message(message.from_user.id, "Введите два id через пробел", reply_markup=markup)
 
     @bot.message_handler(content_types=['text'])  #Создаём новую функцию ,реагирующую на любое сообщение
     def message_input_step(message):
+        if message.from_user.id not in ALLOWED_USERS:
+            bot.send_message(message.from_user.id, "У вас нет доступа к этому боту")
+            return
         
         try:
             text = message.text
@@ -132,11 +150,17 @@ def new_edge(message):
 
 @bot.message_handler(commands=['path', 'get_path'])
 def get_path(message):
+    if message.from_user.id not in ALLOWED_USERS:
+        bot.send_message(message.from_user.id, "У вас нет доступа к этому боту")
+        return
 
     bot.send_message(message.from_user.id, "Введите два id через пробел", reply_markup=markup)
 
     @bot.message_handler(content_types=['text'])  #Создаём новую функцию ,реагирующую на любое сообщение
     def message_input_step(message):
+        if message.from_user.id not in ALLOWED_USERS:
+            bot.send_message(message.from_user.id, "У вас нет доступа к этому боту")
+            return
         try:
             text = message.text
             id1 = text.split(" ")[0]
@@ -181,12 +205,18 @@ def get_path(message):
 
 @bot.message_handler(commands=['delete_node', 'node_delete'])
 def delete_node(message):
+    if message.from_user.id not in ALLOWED_USERS:
+        bot.send_message(message.from_user.id, "У вас нет доступа к этому боту")
+        return
     
     bot.send_message(message.from_user.id, " - Удаление точки -", reply_markup=markup)
     bot.send_message(message.from_user.id, "Введите id точки", reply_markup=markup)
 
     @bot.message_handler(content_types=['text'])  #Создаём новую функцию ,реагирующую на любое сообщение
     def message_input_step(message):
+        if message.from_user.id not in ALLOWED_USERS:
+            bot.send_message(message.from_user.id, "У вас нет доступа к этому боту")
+            return
         id = message.text
         elementID = get_from_idTable(id)
         isDeleted = delete_Node(elementID)
@@ -196,6 +226,9 @@ def delete_node(message):
 
 @bot.message_handler(commands=['nodes_list', 'list_nodes'])
 def nodes_list(message):
+    if message.from_user.id not in ALLOWED_USERS:
+        bot.send_message(message.from_user.id, "У вас нет доступа к этому боту")
+        return
 
     bot.send_message(message.from_user.id, " - Список точек -", reply_markup=markup)
     
@@ -239,11 +272,16 @@ def nodes_list(message):
 
 @bot.message_handler(commands=['add_panorama', 'panorama_add'])
 def add_panorama(message):
+    if message.from_user.id not in ALLOWED_USERS:
+        bot.send_message(message.from_user.id, "У вас нет доступа к этому боту")
+        return
     bot.send_message(message.from_user.id, "Отправьте панораму и id точки(одним сообщением)", reply_markup=markup)
 
     @bot.message_handler(content_types= ["photo", "text"])
     def message_input_step(message):
-        
+        if message.from_user.id not in ALLOWED_USERS:
+            bot.send_message(message.from_user.id, "У вас нет доступа к этому боту")
+            return
         
         properties = {"panorama_image":""}
 
@@ -289,22 +327,12 @@ def add_panorama(message):
 
 
 
-# @bot.message_handler(commands=["test"])
-# def test(message):
-
-#     panorama_url = "https://cdn.pannellum.org/2.5/pannellum.htm#panorama=https://pannellum.org/images/alma.jpg"
-#     button_foo = types.InlineKeyboardButton('Панорама', callback_data='foo', url = panorama_url)
-
-#     keyboard = types.InlineKeyboardMarkup()
-#     keyboard.add(button_foo)
-
-
-#     bot.send_message(message.from_user.id, "/test", reply_markup=keyboard, parse_mode='HTML')
-#     bot.send_photo(message.chat.id, photo=open(TEMPLATE_IMAGE_FILENAME_SAVE, 'rb'), caption="Какое-то название", reply_markup = keyboard)
- 
-
+@bot.message_handler(commands=["get_id"])
+def get_id(message):
+    """Function for getting user id"""
+    print(message.from_user.username, message.from_user.id)
+    bot.send_message(message.from_user.id, "Ваш id: " + str(message.from_user.id))
 
 
 bot.polling(none_stop=True, interval=0)
-
 
