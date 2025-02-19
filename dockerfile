@@ -2,6 +2,7 @@ FROM python:3.9.20-alpine3.19
 
 WORKDIR /app
 
+COPY ./src/ .
 COPY . .
 
 RUN pip install -r requirements.txt
