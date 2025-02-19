@@ -25,10 +25,10 @@ for button in buttons:
 
 
 
-
 @bot.message_handler(commands=['start'])
 def start(message):
     bot.send_message(message.from_user.id, "👋 Привет! Я твой бот-чмошник!", reply_markup=markup)
+
 
 @bot.message_handler(commands=['id_table', 'table_id'])
 def id_table(message):

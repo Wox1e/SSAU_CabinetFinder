@@ -1,3 +1,5 @@
+"""Module for loading environment variables"""
+
 import os
 from dotenv import load_dotenv
 
@@ -25,3 +27,4 @@ BUCKET_NAME = os.getenv('BUCKET_NAME')
 
 PANNELUM_URL = os.getenv('PANNELUM_URL')
 PANNELUM_PORT = os.getenv('PANNELUM_PORT')
+
