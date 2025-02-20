@@ -23,7 +23,7 @@ jobs:
 
     # Build the Docker image
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag $DOCKER_IMAGE_NAME:latest
+      run: docker build . --file dockerfile --tag $DOCKER_IMAGE_NAME:latest
 
     # - name: Push the latest tag
     #   run: docker push $DOCKER_REGISTRY_URL/$DOCKER_IMAGE_NAME:latest
