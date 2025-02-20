@@ -103,7 +103,7 @@ def new_node(message):
             properties["name"] = text
             properties["image"] = image
 
-            elementID = create_Node(NODES_GROUP_NAME, properties)
+            elementID = create_node(NODES_GROUP_NAME, properties)
             id = elementID.split(":")[2]
             save_to_idTable(id, elementID)
             save_to_idTable(text, elementID)
