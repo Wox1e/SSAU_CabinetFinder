@@ -106,6 +106,7 @@ def new_node(message):
             elementID = create_Node(NODES_GROUP_NAME, properties)
             id = elementID.split(":")[2]
             save_to_idTable(id, elementID)
+            save_to_idTable(text, elementID)
         except:
             print("Cannot save to Neo4J or to redis")
             bot.send_message(message.from_user.id, "Непредвиденная ошибка...(Code 5)", reply_markup=markup)
