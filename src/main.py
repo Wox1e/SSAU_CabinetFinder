@@ -30,7 +30,7 @@ def start(message):
     if message.from_user.id not in ALLOWED_USERS:
         bot.send_message(message.from_user.id, "У вас нет доступа к этому боту")
         return
-    bot.send_message(message.from_user.id, "👋 Привет! Я твой бот-чмошник!", reply_markup=markup)
+    bot.send_message(message.from_user.id, "👋 Привет! Я твой бот-помощник!", reply_markup=markup)
 
 
 @bot.message_handler(commands=['id_table', 'table_id'])
